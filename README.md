@@ -1,45 +1,46 @@
 # Bloom Demo
 
-A dependency-free local prototype of the Bloom at-home beauty and wellness platform.
+A local-first Bloom at-home beauty and wellness web app.
 
 ## Run locally
 
-No paid services, API keys, build tools, or database are required.
-
-1. Download or clone this repository.
-2. Open `index.html` directly in a browser, or serve the folder with any static server:
+1. Install dependencies:
 
    ```bash
-   python -m http.server 8080
+   npm install
    ```
 
-3. Visit `http://localhost:8080`.
+2. Start the app:
 
-The prototype stores demo data in browser `localStorage`, so bookings and settings remain available between refreshes on the same machine. Use **Reset demo** in the profile menu to restore the sample state.
+   ```bash
+   npm run dev
+   ```
+
+3. Open the local URL shown in the terminal, typically:
+
+   ```text
+   http://localhost:3000
+   ```
 
 ## Architecture
 
-The app is intentionally split into replaceable layers:
+This version is structured so the app can evolve without tying itself to one technology stack:
 
-- `index.html` — semantic shell and UI regions.
-- `styles.css` — presentation only; no component logic.
-- `app.js` — small modules for state, repository, domain actions, views, and application shell.
+- `src/data/mockData.js` — seed data and module definitions
+- `src/lib/formatters.js` — formatting helpers
+- `src/components/Sidebar.jsx` — navigation shell
+- `src/components/Pages.jsx` — page modules for customer, partner, and admin flows
+- `src/App.jsx` — orchestration and state handling
 
-The in-browser repository implements the storage port. It can be replaced later with REST, GraphQL, SQLite, or a hosted backend without changing the view layer. Notifications, payments, mapping, identity, and messaging are represented by local adapters so they can be swapped for real providers when needed.
+The app keeps state in browser local storage, so it runs entirely on a local machine without subscriptions, cloud services, or third-party APIs.
 
-## Prototype coverage
+## Included flows
 
-- Customer onboarding and profile context
-- Service catalog, search, categories, offers, and pricing
-- Address/location selection
-- Slot selection and booking creation
-- Payment/wallet placeholder flow
-- Live order timeline and status updates
-- Reschedule/cancel actions
-- Partner roster and capacity
-- Inventory kit monitoring
-- Admin operations dashboard and module health
-- Customer support/SOS shortcut
-- Role-aware navigation for customer, partner, and administrator experiences
+- customer overview
+- service discovery and booking
+- partner management
+- operations dashboard
+- inventory tracking
+- support and SOS mock flow
 
-The screen is based on the supplied Bloom requirements and module breakdown, while intentionally keeping external integrations mocked for a fully local demo.
+This gives a clean extension point for later migration to a real backend, database, or different frontend stack.
