@@ -34,6 +34,10 @@ export default function App() {
     }));
   };
 
+  const setAddress = (address) => {
+    setState((prev) => ({ ...prev, address }));
+  };
+
   const addBooking = (serviceId) => {
     const service = SERVICES.find((item) => item.id === serviceId) || SERVICES[0];
 
@@ -56,10 +60,6 @@ export default function App() {
     }));
   };
 
-  const resetDemo = () => {
-    setState({ ...INITIAL_STATE });
-  };
-
   const pageMap = useMemo(
     () => ({
       home: <OverviewPage bookings={state.bookings} address={state.address} onViewChange={changeView} onAddBooking={addBooking} />,
@@ -72,10 +72,6 @@ export default function App() {
     }),
     [state]
   );
-
-  const setAddress = (address) => {
-    setState((prev) => ({ ...prev, address }));
-  };
 
   return (
     <div className="app-shell">
